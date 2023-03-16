@@ -1,0 +1,228 @@
+$Macro 	SRCDIR		".."
+$Macro 	OUTBINDIR 	"..\build"
+$Macro	OUTBINNAME 	"gayEngine"
+
+$Include "$SRCDIR/build_scripts/exe_base.vpc"
+
+$Configuration
+{
+	$Debugging
+	{
+		$Command "build/$OUTBINNAME.exe"
+		$WorkingDirectory "../build"
+	}
+	$Compiler
+	{
+		$AdditionalIncludeDirectories "$BASE;$(VULKAN_SDK)/Include" [$WIN32||$WIN64]
+		$AdditionalIncludeDirectories "$BASE;thirdparty/physx" [$POSIX]
+	}
+	$Linker
+	{
+		$AdditionalLibraryDirectories 	"$BASE;$(VULKAN_SDK)/Lib"
+		$AdditionalDependencies			"$BASE;vulkan-1.lib" [$WIN32||$WIN64]
+	}
+}
+
+$Project "gayEngine"
+{
+	$Folder "Исходные файлы"
+	{
+		$File 					"main.cpp"
+		$Folder "audio"
+		{
+			$File 				"audio/audio.h"
+			$File 				"audio/audio.cpp"
+		}
+		$Folder "core"
+		{
+			$File 				"core.cpp"
+			$File 				"core.h"
+			$File 				"globalvars.h"
+		}
+
+		$Folder "debug"
+		{
+			$File				"debugging/log.cpp"
+			$File				"debugging/log.h"
+		}
+
+		$Folder "thread"
+		{
+			$File				"thread/asyncthread.cpp"
+			$File				"thread/asyncthread.h"
+			$File				"thread/threadmgr.cpp"
+			$File				"thread/threadmgr.h"
+			$File				"thread/sync.cpp"
+			$File				"thread/sync.h"
+		}
+
+		$Folder "window"
+		{
+			$File 				"window/windowmanager.h"
+			$File 				"window/windowmanager.cpp"
+			$File 				"window/windowdefs.h"
+			$File 				"window/window.h"
+			$File 				"window/window.cpp"
+			$File 				"window/buttons.h"
+		}
+
+		$Folder "environment"
+		{
+			$Folder "main"
+			{
+				$File 			"environment/main/mainenvironment.cpp"
+				$File 			"environment/main/mainenvironment.h"
+			}
+			$File 			"environment/baseenvironment.h"
+		}
+
+		$Folder "time"
+		{
+			$File 			"time/time.h"
+			$File 			"time/time.cpp"
+		}
+
+		$Folder "network"
+		{
+			$File 			"network/network.h"
+			$File 			"network/network.cpp"
+		}
+
+		$Folder "graphics"
+		{
+			$Folder "render"
+			{
+				$File "graphics/render/vulkanbuffer.h"
+				$File "graphics/render/renderinterface.h"
+				$File "graphics/render/vulkan_impl.cpp"
+
+				$Folder "shaders"
+				{
+					$File "graphics/render/shaders/IShader.h"
+					$File "graphics/render/shaders/CShader.cpp"
+				}
+
+				$Folder "font"
+				{
+					$File "graphics/render/font/font.h"
+					$File "graphics/render/font/font.cpp"
+				}
+			}
+
+			$Folder "components"
+			{
+
+				
+				$File 			"graphics/components/viewport.h"
+				$File 			"graphics/components/viewport.cpp"
+				$File 			"graphics/components/all.h"
+				$Folder "contextmenu"
+				{
+					$File "graphics/components/contextmenu/all_cntxt_menu.h"
+					$File "graphics/components/contextmenu/basecontextmenuitem.h"
+					$File "graphics/components/contextmenu/basecontextmenuitem.cpp"
+					$File "graphics/components/contextmenu/contextmenutextitem.h"
+					$File "graphics/components/contextmenu/contextmenutextitem.cpp"
+					$File "graphics/components/contextmenu/contextmenu.h"
+					$File "graphics/components/contextmenu/contextmenu.cpp"
+				}	
+				$Folder "graphiccomponent"
+				{
+					$File 			"graphics/components/graphiccomponent/all_graphiccomp.h"
+					$File 			"graphics/components/graphiccomponent/imgui_window.h"
+					$File 			"graphics/components/graphiccomponent/imgui_window.cpp"
+					$File 			"graphics/components/graphiccomponent/basegraphiccomponent.h"
+					$File 			"graphics/components/graphiccomponent/basegraphiccomponent.cpp"
+					$File 			"graphics/components/graphiccomponent/windowform.cpp"
+					$File 			"graphics/components/graphiccomponent/windowform.h"
+					$File 			"graphics/components/graphiccomponent/triangle.h"
+					$File 			"graphics/components/graphiccomponent/triangle.cpp"
+						$Folder "imgui"
+						{
+							$File 			"graphics/components/graphiccomponent/imgui/imgui.h"
+							$File 			"graphics/components/graphiccomponent/imgui/imgui.cpp"
+							$File 			"graphics/components/graphiccomponent/imgui/imgui_impl_glfw.h"
+							$File 			"graphics/components/graphiccomponent/imgui/imgui_impl_glfw.cpp"
+							$File 			"graphics/components/graphiccomponent/imgui/imgui_impl_opengl3.cpp"
+							$File 			"graphics/components/graphiccomponent/imgui/imgui_impl_opengl3.h"
+							$File 			"graphics/components/graphiccomponent/imgui/imgui_internal.h"
+							$File 			"graphics/components/graphiccomponent/imgui/imgui_widgets.cpp"
+							$File 			"graphics/components/graphiccomponent/imgui/imgui_impl_opengl3_loader.h"
+							$File 			"graphics/components/graphiccomponent/imgui/imconfig.h"
+							$File 			"graphics/components/graphiccomponent/imgui/imgui_draw.cpp"
+							$File 			"graphics/components/graphiccomponent/imgui/imgui_tables.cpp"
+						}
+				}
+			}
+			$File 			"graphics/graphicdefs.h"
+		}
+		$Folder "files"
+		{
+			$File 			"files/files.cpp"
+			$File 			"files/files.h"
+			$File 			"files/config.h"
+			$File 			"files/config.cpp"
+		}
+		$Folder "types"
+		{
+			$Folder "string"
+			{
+				$File 			"public/string/string.cpp"
+			}
+		}
+	}
+
+	$Folder "Файлы заголовков"
+	{
+		$File 					"public/list.h"
+		$File					"public/matvec.h"
+		$File 					"public/optional.h"
+		$File 					"public/callback.h"
+		$File 					"public/str.h"
+		$File                   "public/locale.h"
+		$Folder "thirdparty"
+		{
+			$File					"thirdparty/obj_loader/OBJ_Loader.h"
+			$File					"thirdparty/stb_image.h"
+			$File					"thirdparty/libsnd/sndfile.h"	
+			$Folder "portaudio"
+			{
+				$File					"thirdparty/portaudio/pa_asio.h"
+				$File					"thirdparty/portaudio/pa_jack.h"
+				$File					"thirdparty/portaudio/pa_linux_alsa.h"
+				$File					"thirdparty/portaudio/pa_mac_core.h"
+				$File					"thirdparty/portaudio/pa_win_ds.h"
+				$File					"thirdparty/portaudio/pa_win_wasapi.h"
+				$File					"thirdparty/portaudio/pa_win_waveformat.h"
+				$File					"thirdparty/portaudio/pa_win_wdmks.h"
+				$File					"thirdparty/portaudio/pa_win_wmme.h"
+				$File					"thirdparty/portaudio/portaudio.h"
+
+			}
+			$Folder "tinyxml2"
+			{
+				$File "thirdparty/tinyxml2/tinyxml2.cpp"
+				$File "thirdparty/tinyxml2/tinyxml2.h"
+			}	
+		}
+
+
+	}
+
+	$Folder "Файлы ресурсов"
+	{
+		$lib glfw3
+		//physx
+		$ImpLib PhysX_64
+		$Lib PhysXCharacterKinematic_static_64
+		$ImpLib PhysXCommon_64
+		$Lib PhysXExtensions_static_64
+		$ImpLib PhysXFoundation_64
+		$Lib PhysXPvdSDK_static_64
+		$ImpLib vulkan [$POSIX]
+		$ImpLib X11 [$POSIX]
+		$ImpLib sndfile
+		$lib portaudio_x64 [$WINDOWS]
+		$File "List.natvis"
+	}
+}
